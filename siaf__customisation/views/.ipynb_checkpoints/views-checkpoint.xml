@@ -1,6 +1,186 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
+      
+    <!-- explicit  view form Inherit -->   
+    
+      	
+    <record model="ir.ui.view" id="siaf_product_templatet_inherit_form">
+      <field name="name">siaf_product_templatet_inherit_form</field>
+          <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="model">product.template</field>
+      <field name="arch" type="xml">
+        
+           <xpath expr="//field[@name='detailed_type']" position="after">
+                <field name="N_d_Lot"/>
+            </xpath>
+            <xpath expr="//field[@name='detailed_type']" position="after">
+                <field name="S_d_Lot"/>
+            </xpath>
+          
+<!--             <xpath expr="//field[@name='barcode']" position="after">
+                <field name="Type_ID" string = "Type Local"/>
+            </xpath> -->
+
+            <xpath expr="//page[@name='general_information']" position="after">
+               <page string="Project">
+                   <group>
+                       <field name="Project_ids"/>
+                   </group>
+               </page>
+            </xpath>
+            <xpath expr="//page[@name='general_information']" position="after">
+               <page string="Zone">
+                   <group>
+                     <field name="Zone_ID" string = "Zone"/>
+                   </group>
+               </page>
+            </xpath>
+             <xpath expr="//page[@name='general_information']" position="after">
+               <page string="Article visual">
+                                <group>
+                                    <field name="Article_type" widget="radio"/>
+                                    <field name="worksheet" help="Upload your PDF file." widget="pdf_viewer" attrs="{'invisible':  [('Article_type', '!=', 'pdf')], 'required':  [('Article_type', '=', 'pdf')]}"/>
+                                    <field name="worksheet_google_slide" placeholder="Google Slide Link" widget="embed_viewer" attrs="{'invisible':  [('Article_type', '!=', 'google_slide')], 'required': [('Article_type', '=', 'google_slide')]}"/>
+                                    <field name="note" attrs="{'invisible':  [('Article_type', '!=', 'text')]}"/>
+                                </group>
+               </page>
+            </xpath>
+          
+          
+
+      </field>
+        
+    </record>
+      
+      
+      <!--       Res_partner List view Add-->
+       <record model="ir.ui.view" id="siaf_product_template_list">
+      <field name="name">siaf_product_template_list_add</field>
+          <field name="inherit_id" ref="product.product_template_tree_view"/>
+      <field name="model">product.template</field>
+      <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="N_d_Lot" optional="hide"/>
+                <field name="S_d_Lot" optional="hide"/>
+                <field name="Type_ID" optional="hide"/>
+                <field name="Project_ids" optional="hide"/>
+                <field name="Zone_ID" optional="hide"/>
+            </xpath>
+          
+      </field>
+    </record>   
+     
+<!--       Res_partner form view Add-->
+      
+    <record model="ir.ui.view" id="siaf_res_partner_form">
+      <field name="name">siaf_partner_field_add</field>
+          <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='category_id']" position="after">
+        <field name="Numéro_CNI"/>
+<!--         <field name="MRB_Bank" attrs="{'invisible': [('MRB_Customer','=',False)], 'required':[('MRB_Customer','=',True)]}"/> -->
+            
+        </xpath>
+          
+           <xpath expr="//page[@name='internal_notes']" position="before">
+               <page string="Documentations Notes" name="Docnote">
+                   <group> 
+                       <field name="Documentations" widget="many2many_binary" string="Documentations"/> 
+                   </group>
+               </page>
+            </xpath>
+      </field>
+    </record>
+      
+ 
+<!--  PROJECT    -->
+    <!--  siaf.project Form View       -->
+ <record model="ir.ui.view" id="siaf_project_form">
+      <field name="name">Projects</field>
+      <field name="model">siaf.project</field>
+      <field name="arch" type="xml">
+        <form>
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="Nom_Projet" placeholder="e.g. Project Name"/>
+            </h1>
+          </div>
+           <group>
+             <group string="Project Info">
+               <field name="Numéro_Projet"/>
+                 <field name="Address" widget="address"/>
+
+             </group>
+               
+             <group string="Attachement Info">
+                  <field name="Project_doc" widget="radio"/>
+                                    <field name="worksheet" help="Upload your PDF file." widget="pdf_viewer" attrs="{'invisible':  [('Project_doc', '!=', 'pdf')], 'required':  [('Project_doc', '=', 'pdf')]}"/>
+                                    <field name="worksheet_google_slide" placeholder="Google Slide Link" widget="embed_viewer" attrs="{'invisible':  [('Project_doc', '!=', 'google_slide')], 'required': [('Project_doc', '=', 'google_slide')]}"/>
+                                    <field name="note" attrs="{'invisible':  [('Project_doc', '!=', 'text')]}"/>
+             </group>
+           </group>
+
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+<!--       Project List View  -->
+<record model="ir.ui.view" id="siaf_project_list">
+      <field name="name">Project Lists</field>
+      <field name="model">siaf.project</field>
+      <field name="arch" type="xml">
+        <tree string="Project">
+            <field name="Nom_Projet"/>
+            <field name="Numéro_Projet"/>
+            <field name="Address"/>   
+        </tree>
+      </field>
+    </record>
+      
+
+ <!--  ZONE    -->
+    <!--  siaf.zone Form View       -->     
+ <record model="ir.ui.view" id="siaf_zone_form">
+      <field name="name">Zone</field>
+      <field name="model">siaf.zone</field>
+      <field name="arch" type="xml">
+        <form>
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="name" placeholder="e.g. Zone Name"/>
+            </h1>
+          </div>
+            
+           <group>
+               
+             <group string="Zone Info">
+               <field name="Address"/>
+             </group>
+               
+           </group>
+
+          </sheet>
+        </form>
+      </field>
+</record>
+
+<!--       ZONE List View  -->
+<record model="ir.ui.view" id="siaf_zone_list">
+      <field name="name">Zone Lists</field>
+      <field name="model">siaf.zone</field>
+      <field name="arch" type="xml">
+        <tree string="Zone">
+        <field name="name"/>
+        <field name="Address"/>
+        </tree>
+      </field>
+</record>
+      
 <!--
     <record model="ir.ui.view" id="siaf__customisation.list">
       <field name="name">Siaf_Customisation list</field>
@@ -24,6 +204,23 @@
     </record>
 -->
 
+    <record model="ir.actions.act_window" id="siaf_project_action">
+      <field name="name">Project Detail</field>
+      <field name="res_model">siaf.project</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+      
+    <record model="ir.actions.act_window" id="siaf_zone_action">
+      <field name="name">Zone Detail</field>
+      <field name="res_model">siaf.zone</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+      
+      
+      
+      
+      
+      
     <!-- server action to the one above -->
 <!--
     <record model="ir.actions.server" id="siaf__customisation.action_server">
@@ -56,5 +253,14 @@
     <menuitem name="Server to list" id="siaf__customisation" parent="siaf__customisation.menu_2"
               action="siaf__customisation.action_server"/>
 -->
+      
+<menuitem name="Projects" id="siaf_project_config" parent="sale.menu_sale_config" action="siaf_project_action"/>
+<menuitem name="Projects" id="siaf_project_inv_config" parent="stock.menu_stock_config_settings" action="siaf_project_action"/>
+      
+<menuitem name="Zone" id="siaf_zone_config" parent="sale.menu_sale_config" action="siaf_zone_action"/>
+<menuitem name="Zone" id="siaf_zone_inv_config" parent="stock.menu_stock_config_settings" action="siaf_zone_action"/>
+    
+      
+      
   </data>
 </odoo>

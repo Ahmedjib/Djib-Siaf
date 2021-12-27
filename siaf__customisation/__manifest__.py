@@ -14,9 +14,10 @@
     'sequence': 1,
     'author': 'Ahmed Abdi',
     'website': 'https://ahmed.abdi.com/',
-    'depends': ['base','sale_management', 'account'],
+    'depends': ['base','sale_management', 'account','product'],
     'data': [
         'views/views.xml',
+        'security/ir.model.access.csv',
     ],
     'images': [
         'static/description/logo.jpg',
