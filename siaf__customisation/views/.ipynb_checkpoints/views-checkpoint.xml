@@ -79,9 +79,7 @@
       <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='category_id']" position="after">
-        <field name="Numéro_CNI"/>
-<!--         <field name="MRB_Bank" attrs="{'invisible': [('MRB_Customer','=',False)], 'required':[('MRB_Customer','=',True)]}"/> -->
-            
+        <field name="Numéro_CNI"/>  
         </xpath>
           
            <xpath expr="//page[@name='internal_notes']" position="before">
@@ -254,13 +252,28 @@
               action="siaf__customisation.action_server"/>
 -->
       
-<menuitem name="Projects" id="siaf_project_config" parent="sale.menu_sale_config" action="siaf_project_action"/>
-<menuitem name="Projects" id="siaf_project_inv_config" parent="stock.menu_stock_config_settings" action="siaf_project_action"/>
+<menuitem name="Projects" 
+id="siaf_project_config" 
+parent="sale.prod_config_main"
+action="siaf_project_action"/>
+       
+<menuitem name="Projects" 
+id="siaf_project_inv_config" 
+parent="stock.menu_product_in_config_stock"
+action="siaf_project_action"/>
+ 
       
-<menuitem name="Zone" id="siaf_zone_config" parent="sale.menu_sale_config" action="siaf_zone_action"/>
-<menuitem name="Zone" id="siaf_zone_inv_config" parent="stock.menu_stock_config_settings" action="siaf_zone_action"/>
+<menuitem name="Zone" 
+id="siaf_zone_config" 
+parent="sale.prod_config_main" 
+action="siaf_zone_action"/>
+      
+<menuitem name="Zone"
+id="siaf_zone_inv_config" 
+parent="stock.menu_product_in_config_stock"
+action="siaf_zone_action"/>
     
-      
+  
       
   </data>
 </odoo>

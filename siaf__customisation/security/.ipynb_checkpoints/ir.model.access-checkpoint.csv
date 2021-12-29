@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_siaf_type,siaf_type,model_siaf_type,base.group_user,1,1,1,1
 access_siaf_project,siaf_project,model_siaf_project,base.group_user,1,1,1,1
+access_siaf_zone,siaf_zone,model_siaf_zone,base.group_user,1,1,1,1
+
 
